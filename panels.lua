@@ -1,6 +1,6 @@
 addon.name    = 'panels';
 addon.author  = 'Maestrel';
-addon.version = '1.0';
+addon.version = '1.1';
 addon.desc    = 'Custom menu for quick commands';
 
 require('common');
@@ -106,6 +106,10 @@ ashita.events.register('d3d_present', 'uberpanel_render', function()
                                                                     print('Uberpanel error: command is nil');
                                                                 end
                                                             end
+                                                            if (btn.description) then
+                                                                imgui.SameLine();
+                                                                imgui.TextDisabled(tostring(btn.description));
+                                                            end
                                                         end
                                                     end
                                                     imgui.EndTabItem();
@@ -128,6 +132,10 @@ ashita.events.register('d3d_present', 'uberpanel_render', function()
                                                     print('Uberpanel error: command is nil');
                                                 end
                                             end
+                                            if (btn.description) then
+                                                imgui.SameLine();
+                                                imgui.TextDisabled(tostring(btn.description));
+                                            end
                                         end
                                     end
                                     imgui.EndTabItem();
@@ -149,6 +157,10 @@ ashita.events.register('d3d_present', 'uberpanel_render', function()
                                 else
                                     print('Uberpanel error: command is nil');
                                 end
+                            end
+                            if (btn.description) then
+                                imgui.SameLine();
+                                imgui.TextDisabled(tostring(btn.description));
                             end
                         end
                     -- Simple text content

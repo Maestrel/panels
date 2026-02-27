@@ -43,29 +43,32 @@ Pour afficher ou masquer le menu, utilisez la commande :
 
 ## Configuration
 
-To add new tabs or buttons, you can use the `template.lua` file as a reference.
+The list of buttons is stored in `zones.lua`. You can edit this file to add, remove, or reorganize buttons.
 
-### Using `template.lua`
-
-The `template.lua` file provides a simple structure for creating new tabs with buttons. You can copy this structure into your main configuration or other module files.
-
-To edit it:
-1. Open `template.lua`.
-2. Modify the `name` field to change the tab title.
-3. Add or remove entries in the `buttons` table.
-
-Example structure:
+### Structure of `zones.lua`
 
 ```lua
-local template_tab = {
-    name = "My New Tab",
-    buttons = {
-        { label = "Say Hello", command = "/echo Hello World" },
-        { label = "Wave", command = "/wave" }
+local zones = {
+    {
+        name = "Tab Name",
+        buttons = {
+            { label = "Button Label", command = "/command to execute" },
+            -- ...
+        }
+    },
+    {
+        name = "Tab With Sub-zones",
+        sub_zones = {
+            {
+                name = "Sub-tab Name",
+                buttons = {
+                    { label = "Button Label", command = "/command" },
+                }
+            }
+        }
     }
 }
-
-return template_tab;
+return zones;
 ```
 
 ## Requirements
