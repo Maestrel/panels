@@ -4,17 +4,21 @@ local uber_warp = {
     {
         name = "San d'Oria",
         buttons = {
-            { label = "NorthernSandOria - West Ronfaure exit", command = "/uw hp NorthernSandOria" , description = "" },
-            { label = "NorthernSandOria 2", command = "/uw hp NorthernSandOria 2" , description = "" },
-            { label = "NorthernSandOria 3", command = "/uw hp NorthernSandOria 3" , description = "" },
-            { label = "NorthernSandOria 4", command = "/uw hp NorthernSandOria 4" , description = "" },
-            { label = "PortSandOria - Airship Dock", command = "/uw hp PortSandOria" , description = "" },
-            { label = "PortSandOria 2", command = "/uw hp PortSandOria 2" , description = "" },
-            { label = "PortSandOria 3", command = "/uw hp PortSandOria 3" , description = "" },
-            { label = "SouthernSandOria - West Ronfaure exit", command = "/uw hp SouthernSandOria" , description = "" },
-            { label = "SouthernSandOria 2", command = "/uw hp SouthernSandOria 2" , description = "" },
-            { label = "SouthernSandOria 3", command = "/uw hp SouthernSandOria 3" , description = "" },
-            { label = "SouthernSandOria 4", command = "/uw hp SouthernSandOria 4" , description = "" },
+            {text = [[ --- South San d'Oria --- ]]},
+            { label = "SouthernSandOria (E)", command = "/uw hp SouthernSandOria" , description = "West Ronfaure Entrance" },
+            { label = "SouthernSandOria (A)", command = "/uw hp SouthernSandOria 2" , description = "Auction House" },
+            { label = "SouthernSandOria (M)", command = "/uw hp SouthernSandOria 3" , description = "Mog House" },
+            { label = "SouthernSandOria (G)", command = "/uw hp SouthernSandOria 4" , description = "Tanner's Guild" },
+            {text = [[ --- North San d'Oria --- ]]},
+            { label = "NorthernSandOria (E)", command = "/uw hp NorthernSandOria" , description = "West Ronfaure Entrance" },
+            { label = "NorthernSandOria (C)", command = "/uw hp NorthernSandOria 2" , description = "Chateau d'Oraguille" },
+            { label = "NorthernSandOria (M)", command = "/uw hp NorthernSandOria 3" , description = "Mog House" },
+            { label = "NorthernSandOria (G)", command = "/uw hp NorthernSandOria 4" , description = "Woodworking and Blacksmith's Guilds" },
+            {text = [[ --- Port San d'Oria --- ]]},
+            { label = "PortSandOria (Ship)", command = "/uw hp PortSandOria" , description = "Airship Dock" },
+            { label = "PortSandOria (M)", command = "/uw hp PortSandOria 2" , description = "Mog House" },
+            { label = "PortSandOria (A)", command = "/uw hp PortSandOria 3" , description = "Auction House" },
+            {text = [[ --- Survival Guide --- ]]},
             { label = "NorthernSandOria - Survival Guide", command = "/uw sg NorthernSandOria" , description = "" },
         }
     },
@@ -23,9 +27,9 @@ local uber_warp = {
         buttons = {
             {text = [[ --- Bastok Market --- ]]},
             { label = "BastokMarkets (E)", command = "/uw hp BastokMarkets" , description = "South Gustaberg Entrance" },
-            { label = "BastokMarkets 2 (A)", command = "/uw hp BastokMarkets 2" , description = "Auction House" },
-            { label = "BastokMarkets 3 (M)", command = "/uw hp BastokMarkets 3" , description = "Mog House" },
-            { label = "BastokMarkets 4 - (G)", command = "/uw hp BastokMarkets 4" , description = "Goldsmithing Guild" },
+            { label = "BastokMarkets (A)", command = "/uw hp BastokMarkets 2" , description = "Auction House" },
+            { label = "BastokMarkets (M)", command = "/uw hp BastokMarkets 3" , description = "Mog House" },
+            { label = "BastokMarkets (G)", command = "/uw hp BastokMarkets 4" , description = "Goldsmithing Guild" },
             {text = [[ --- Bastok Mine --- ]]},
             { label = "BastokMines (A)", command = "/uw hp BastokMines" , description = "Auction House" },
             { label = "BastokMines 2 (M)", command = "/uw hp BastokMines 2" , description = "Mog House" },
@@ -34,7 +38,7 @@ local uber_warp = {
             { label = "Metalworks UP", command = "/uw hp Metalworks" , description = "President's Office" },
             { label = "Metalworks 2 DOWN", command = "/uw hp Metalworks 2" , description = "Smithing Guild" },
             {text = [[ --- Port Bastok --- ]]},
-            { label = "PortBastok - (E)", command = "/uw hp PortBastok" , description = "North Gustaberg Entrance" },
+            { label = "PortBastok (E)", command = "/uw hp PortBastok" , description = "North Gustaberg Entrance" },
             { label = "PortBastok 2 (M)", command = "/uw hp PortBastok 2" , description = "Mog House" },
             { label = "PortBastok 3 (Ship)", command = "/uw hp PortBastok 3" , description = "Near Airship" },
             {text = [[ --- Survival Guide --- ]]},
@@ -44,37 +48,47 @@ local uber_warp = {
     {
         name = "Windurst",
         buttons = {
-            { label = "PortWindurst", command = "/uw hp PortWindurst" , description = "" },
-            { label = "PortWindurst 2", command = "/uw hp PortWindurst 2" , description = "" },
-            { label = "PortWindurst 3", command = "/uw hp PortWindurst 3" , description = "" },
-            { label = "WindurstWalls", command = "/uw hp WindurstWalls" , description = "" },
-            { label = "WindurstWalls 2", command = "/uw hp WindurstWalls 2" , description = "" },
-            { label = "WindurstWalls 3", command = "/uw hp WindurstWalls 3" , description = "" },
-            { label = "WindurstWaters", command = "/uw hp WindurstWaters" , description = "" },
-            { label = "WindurstWaters 2", command = "/uw hp WindurstWaters 2" , description = "" },
-            { label = "WindurstWaters 3", command = "/uw hp WindurstWaters 3" , description = "" },
-            { label = "WindurstWaters 4", command = "/uw hp WindurstWaters 4" , description = "" },
-            { label = "WindurstWoods - Manustery area", command = "/uw hp WindurstWoods" , description = "" },
-            { label = "WindurstWoods 2", command = "/uw hp WindurstWoods 2" , description = "" },
-            { label = "WindurstWoods 3", command = "/uw hp WindurstWoods 3" , description = "" },
-            { label = "WindurstWoods 4", command = "/uw hp WindurstWoods 4" , description = "" },
+            {text = [[ --- Windurst Woods --- ]]},
+            { label = "WindurstWoods Manustery", command = "/uw hp WindurstWoods" , description = "Manustery" },
+            { label = "WindurstWoods (E)", command = "/uw hp WindurstWoods 2" , description = "East Sarutaba Entrance" },
+            { label = "WindurstWoods (M)", command = "/uw hp WindurstWoods 3" , description = "Mog House" },
+            { label = "WindurstWoods (A)", command = "/uw hp WindurstWoods 4" , description = "Auction House" },
             { label = "WindurstWoods 5", command = "/uw hp WindurstWoods 5" , description = "" },
+            {text = [[ --- Windurst Walls --- ]]},
+            { label = "WindurstWalls (HT)", command = "/uw hp WindurstWalls" , description = "Heaven Tower" },
+            { label = "WindurstWalls (M)", command = "/uw hp WindurstWalls 2" , description = "Mog House" },
+            { label = "WindurstWalls (A)", command = "/uw hp WindurstWalls 3" , description = "Auction House" },
+            {text = [[ --- Windurst Waters --- ]]},
+            { label = "WindurstWaters (E)", command = "/uw hp WindurstWaters" , description = "West Sarutaba (North) Entrance" },
+            { label = "WindurstWaters (M)", command = "/uw hp WindurstWaters 2" , description = "Mog House" },
+            { label = "WindurstWaters (map 2)", command = "/uw hp WindurstWaters 3" , description = "Rhinostery" },
+            { label = "WindurstWaters (G)", command = "/uw hp WindurstWaters 4" , description = "Culinarian's Guild" },
+            {text = [[ --- Port Windurst --- ]]},
+            { label = "PortWindurst (G)", command = "/uw hp PortWindurst" , description = "Fisherman's Guild" },
+            { label = "PortWindurst (E)", command = "/uw hp PortWindurst 2" , description = "West Sarutaba (South) Entrance" },
+            { label = "PortWindurst (M)", command = "/uw hp PortWindurst 3" , description = "Mog House" },
+            {text = [[ --- Survival Guide --- ]]},
             { label = "PortWindurst - Survival Guide", command = "/uw sg PortWindurst" , description = "" },
         }
     },
     {
         name = "Jeuno",
         buttons = {
-            { label = "LowerJeuno - Rolanberry Fields exit", command = "/uw hp LowerJeuno" , description = "" },
-            { label = "LowerJeuno 2", command = "/uw hp LowerJeuno 2" , description = "" },
-            { label = "PortJeuno - Sauromugue Champaign exit", command = "/uw hp PortJeuno" , description = "" },
-            { label = "PortJeuno 2", command = "/uw hp PortJeuno 2" , description = "" },
-            { label = "RuLudeGardens - Palace Entrance", command = "/uw hp RuLudeGardens" , description = "" },
-            { label = "RuLudeGardens 2", command = "/uw hp RuLudeGardens 2" , description = "" },
-            { label = "RuLudeGardens 3", command = "/uw hp RuLudeGardens 3" , description = "" },
-            { label = "UpperJeuno - Batallia Downs exit", command = "/uw hp UpperJeuno" , description = "" },
-            { label = "UpperJeuno 2", command = "/uw hp UpperJeuno 2" , description = "" },
-            { label = "UpperJeuno 3", command = "/uw hp UpperJeuno 3" , description = "" },
+            {text = [[ --- Port Jeuno --- ]]},
+            { label = "PortJeuno (E)", command = "/uw hp PortJeuno" , description = "Sauromugue Champaign Entrance" },
+            { label = "PortJeuno (M)", command = "/uw hp PortJeuno 2" , description = "Mog House" },
+            {text = [[ --- Lower Jeuno --- ]]},
+            { label = "LowerJeuno (E)", command = "/uw hp LowerJeuno" , description = "Rolanberry Fields Entrance" },
+            { label = "LowerJeuno (M)", command = "/uw hp LowerJeuno 2" , description = "Lower Jeuno Mog House" },
+            {text = [[ --- Upper Jeuno --- ]]},
+            { label = "UpperJeuno (E)", command = "/uw hp UpperJeuno" , description = "Batallia Downs Entrance" },
+            { label = "UpperJeuno (M)", command = "/uw hp UpperJeuno 2" , description = "Mog House" },
+            { label = "UpperJeuno (A)", command = "/uw hp UpperJeuno 3" , description = "Auction House" },
+            {text = [[ --- Ru'Lude Gardens --- ]]},
+            { label = "RuLudeGardens - Palace Entrance", command = "/uw hp RuLudeGardens" , description = "Palace Entrance" },
+            { label = "RuLudeGardens (M)", command = "/uw hp RuLudeGardens 2" , description = "Mog House" },
+            { label = "RuLudeGardens (A)", command = "/uw hp RuLudeGardens 3" , description = "Auction House" },
+            {text = [[ --- Survival Guide --- ]]},
             { label = "RuLudeGardens - Survival Guide", command = "/uw sg RuLudeGardens" , description = "" },
         }
     },
@@ -88,6 +102,7 @@ local uber_warp = {
             { label = "AlZahbi", command = "/uw hp AlZahbi" , description = "" },
             { label = "BhaflauThickets", command = "/uw hp BhaflauThickets" , description = "" },
             { label = "Nashmau", command = "/uw hp Nashmau" , description = "" },
+            {text = [[ --- Survival Guide --- ]]},
             { label = "AhtUrhganWhitegate - Survival Guide", command = "/uw sg AhtUrhganWhitegate" , description = "" },
             { label = "ArrapagoReef - Survival Guide", command = "/uw sg ArrapagoReef" , description = "" },
             { label = "Halvung - Survival Guide", command = "/uw sg Halvung" , description = "" },
@@ -109,6 +124,7 @@ local uber_warp = {
             { label = "RuAunGardens 5", command = "/uw hp RuAunGardens 5" , description = "" },
             { label = "TheGardenofRuHmet", command = "/uw hp TheGardenofRuHmet" , description = "" },
             { label = "TheShrineofRuAvitau", command = "/uw hp TheShrineofRuAvitau" , description = "" },
+            {text = [[ --- Survival Guide --- ]]},
             { label = "RuAunGardens - Survival Guide", command = "/uw sg RuAunGardens" , description = "" },
         }
     },
@@ -118,6 +134,7 @@ local uber_warp = {
             {
                 name = "Ronfaure",
                 buttons = {
+                    {text = [[ --- Survival Guide --- ]]},
                     { label = "WestRonfaure - Survival Guide", command = "/uw sg WestRonfaure" , description = "" },
                     { label = "FortGhelsba - Survival Guide", command = "/uw sg FortGhelsba" , description = "" },
                     { label = "KingRanperresTomb - Survival Guide", command = "/uw sg KingRanperresTomb" , description = "" },
@@ -129,6 +146,7 @@ local uber_warp = {
                 name = "Zulkheim",
                 buttons = {
                     { label = "Selbina", command = "/uw hp Selbina" , description = "" },
+                    {text = [[ --- Survival Guide --- ]]},
                     { label = "ValkurmDunes - Survival Guide", command = "/uw sg ValkurmDunes" , description = "" },
                     { label = "KonschtatHighlands - Survival Guide", command = "/uw sg KonschtatHighlands" , description = "" },
                     { label = "LaTheinePlateau - Survival Guide", command = "/uw sg LaTheinePlateau" , description = "" },
@@ -137,6 +155,7 @@ local uber_warp = {
             {
                 name = "Norvallen",
                 buttons = {
+                    {text = [[ --- Survival Guide --- ]]},
                     { label = "JugnerForest - Survival Guide", command = "/uw sg JugnerForest" , description = "" },
                     { label = "BatalliaDowns - Survival Guide", command = "/uw sg BatalliaDowns" , description = "" },
                     { label = "CarpentersLanding - Survival Guide", command = "/uw sg CarpentersLanding" , description = "" },
@@ -146,6 +165,7 @@ local uber_warp = {
             {
                 name = "Gustaberg",
                 buttons = {
+                    {text = [[ --- Survival Guide --- ]]},
                     { label = "NorthGustaberg - Survival Guide", command = "/uw sg NorthGustaberg" , description = "" },
                     { label = "DangrufWadi - Survival Guide", command = "/uw sg DangrufWadi" , description = "" },
                 }
@@ -153,6 +173,7 @@ local uber_warp = {
             {
                 name = "Derfland",
                 buttons = {
+                    {text = [[ --- Survival Guide --- ]]},
                     { label = "PashhowMarshlands - Survival Guide", command = "/uw sg PashhowMarshlands" , description = "" },
                     { label = "RolanberryFields - Survival Guide", command = "/uw sg RolanberryFields" , description = "" },
                     { label = "Beadeaux - Survival Guide", command = "/uw sg Beadeaux" , description = "" },
@@ -161,25 +182,29 @@ local uber_warp = {
             {
                 name = "Sarutabaruta",
                 buttons = {
-                    { label = "WestSarutabaruta - Survival Guide", command = "/uw sg WestSarutabaruta" , description = "" },
                     { label = "Giddeus", command = "/uw hp Giddeus" , description = "" },
+                    {text = [[ --- Survival Guide --- ]]},
+                    { label = "WestSarutabaruta - Survival Guide", command = "/uw sg WestSarutabaruta" , description = "" },
+                    
                 }
             },
             {
                 name = "Kolshushu",
                 buttons = {
+                    { label = "AttohwaChasm", command = "/uw hp AttohwaChasm" , description = "" },
                     { label = "TahrongiCanyon - Survival Guide", command = "/uw sg TahrongiCanyon" , description = "" },
                     { label = "BuburimuPeninsula - Survival Guide", command = "/uw sg BuburimuPeninsula" , description = "" },
                     { label = "MazeofShakhrami - Survival Guide", command = "/uw sg MazeofShakhrami" , description = "" },
                     { label = "Mhaura", command = "/uw hp Mhaura" , description = "" },
                     { label = "BibikiBay - Survival Guide", command = "/uw sg BibikiBay" , description = "" },
-                    { label = "LabyrinthofOnzozo - Survival Guide", command = "/uw sg LabyrinthofOnzozo" , description = "" },
-                    { label = "AttohwaChasm", command = "/uw hp AttohwaChasm" , description = "" },
+                    {text = [[ --- Survival Guide --- ]]},
+                    { label = "LabyrinthofOnzozo - Survival Guide", command = "/uw sg LabyrinthofOnzozo" , description = "" },                    
                 }
             },
             {
                 name = "Aragoneu",
                 buttons = {
+                    {text = [[ --- Survival Guide --- ]]},
                     { label = "MeriphataudMountains - Survival Guide", command = "/uw sg MeriphataudMountains" , description = "" },
                     { label = "SauromugueChampaign - Survival Guide", command = "/uw sg SauromugueChampaign" , description = "" },
                     { label = "CastleOztroja - Survival Guide", command = "/uw sg CastleOztroja" , description = "" },
@@ -188,8 +213,7 @@ local uber_warp = {
             {
                 name = "Fauregandi",
                 buttons = {
-                    { label = "BeaucedineGlacier - Survival Guide", command = "/uw sg BeaucedineGlacier" , description = "" },
-                    { label = "Xarcabard - Survival Guide", command = "/uw sg Xarcabard" , description = "" },
+                    
                     { label = "FeiYin - Cloister path", command = "/uw hp FeiYin" , description = "" },
                     { label = "FeiYin 2  (G-6) - Inner hall", command = "/uw hp FeiYin 2" , description = "" },
                     { label = "UleguerandRange - Entrance ridge", command = "/uw hp UleguerandRange" , description = "" },
@@ -197,6 +221,9 @@ local uber_warp = {
                     { label = "UleguerandRange 3", command = "/uw hp UleguerandRange 3" , description = "" },
                     { label = "UleguerandRange 4", command = "/uw hp UleguerandRange 4" , description = "" },
                     { label = "UleguerandRange 5", command = "/uw hp UleguerandRange 5" , description = "" },
+                    {text = [[ --- Survival Guide --- ]]},
+                    { label = "BeaucedineGlacier - Survival Guide", command = "/uw sg BeaucedineGlacier" , description = "" },
+                    { label = "Xarcabard - Survival Guide", command = "/uw sg Xarcabard" , description = "" },
                     { label = "CastleZvahlBaileys - Survival Guide", command = "/uw sg CastleZvahlBaileys" , description = "" },
                 }
             },
@@ -204,6 +231,7 @@ local uber_warp = {
                 name = "Qufim",
                 buttons = {
                     { label = "QufimIsland - Undulating Confluence", command = "/uw hp QufimIsland" , description = "" },
+                    {text = [[ --- Survival Guide --- ]]},
                     { label = "BehemothsDominion - Survival Guide", command = "/uw sg BehemothsDominion" , description = "" },
                 }
             },
@@ -211,6 +239,7 @@ local uber_warp = {
                 name = "Li'Telor",
                 buttons = {
                     { label = "TheBoyahdaTree", command = "/uw hp TheBoyahdaTree" , description = "" },
+                    {text = [[ --- Survival Guide --- ]]},
                     { label = "TheSanctuaryofZiTah - Survival Guide", command = "/uw sg TheSanctuaryofZiTah" , description = "" },
                     { label = "RoMaeve - Survival Guide", command = "/uw sg RoMaeve" , description = "" },
                     { label = "DragonsAery - Survival Guide", command = "/uw sg DragonsAery" , description = "" },
@@ -221,10 +250,11 @@ local uber_warp = {
                 buttons = {
                     { label = "Rabao", command = "/uw hp Rabao" , description = "" },
                     { label = "Rabao 2", command = "/uw hp Rabao 2" , description = "" },
+                    { label = "CapeTeriggan", command = "/uw hp CapeTeriggan" , description = "" },
+                    {text = [[ --- Survival Guide --- ]]},
                     { label = "Rabao - Survival Guide", command = "/uw sg Rabao" , description = "" },
                     { label = "EasternAltepaDesert - Survival Guide", command = "/uw sg EasternAltepaDesert" , description = "" },
                     { label = "WesternAltepaDesert - Survival Guide", command = "/uw sg WesternAltepaDesert" , description = "" },
-                    { label = "CapeTeriggan", command = "/uw hp CapeTeriggan" , description = "" },
                     { label = "CapeTeriggan - Survival Guide", command = "/uw sg CapeTeriggan" , description = "" },
                     { label = "ValleyofSorrows - Survival Guide", command = "/uw sg ValleyofSorrows" , description = "" },
                 }
@@ -233,38 +263,43 @@ local uber_warp = {
                 name = "Elshimo Lowlands",
                 buttons = {
                     { label = "Kazham", command = "/uw hp Kazham" , description = "" },
-                    { label = "Kazham - Survival Guide", command = "/uw sg Kazham" , description = "" },
                     { label = "Norg", command = "/uw hp Norg" , description = "" },
                     { label = "Norg 2", command = "/uw hp Norg 2" , description = "" },
+                    {text = [[ --- Survival Guide --- ]]},
+                    { label = "Kazham - Survival Guide", command = "/uw sg Kazham" , description = "" },
                     { label = "Norg - Survival Guide", command = "/uw sg Norg" , description = "" },
                     { label = "YuhtungaJungle - Survival Guide", command = "/uw sg YuhtungaJungle" , description = "" },
                 }
             },
             {
                 name = "Elshimo Uplands",
-                buttons = {
-                    { label = "YhoatorJungle - Survival Guide", command = "/uw sg YhoatorJungle" , description = "" },
-                    { label = "IfritsCauldron", command = "/uw hp IfritsCauldron" , description = "" },
-                    { label = "IfritsCauldron - Survival Guide", command = "/uw sg IfritsCauldron" , description = "" },
+                buttons = {                   
                     { label = "DenofRancor", command = "/uw hp DenofRancor" , description = "" },
                     { label = "DenofRancor 2", command = "/uw hp DenofRancor 2" , description = "" },
+                    { label = "IfritsCauldron", command = "/uw hp IfritsCauldron" , description = "" },
+                    {text = [[ --- Survival Guide --- ]]},
+                    { label = "YhoatorJungle - Survival Guide", command = "/uw sg YhoatorJungle" , description = "" },
+                    { label = "IfritsCauldron - Survival Guide", command = "/uw sg IfritsCauldron" , description = "" },
                 }
             },
             {
                 name = "Movalpolos",
                 buttons = {
-                    { label = "OldtonMovalpolos - Survival Guide", command = "/uw sg OldtonMovalpolos" , description = "" },
                     { label = "NewtonMovalpolos", command = "/uw hp NewtonMovalpolos" , description = "" },
+                    {text = [[ --- Survival Guide --- ]]},
+                    { label = "OldtonMovalpolos - Survival Guide", command = "/uw sg OldtonMovalpolos" , description = "" },
                 }
             },
             {
                 name = "Near East",
                 buttons = {
-                    { label = "WajaomWoodlands - Survival Guide", command = "/uw sg WajaomWoodlands" , description = "" },
                     { label = "CaedarvaMire", command = "/uw hp CaedarvaMire" , description = "" },
+                    { label = "MountZhayolm", command = "/uw hp MountZhayolm" , description = "" },
+                    {text = [[ --- Survival Guide --- ]]},
+                    { label = "WajaomWoodlands - Survival Guide", command = "/uw sg WajaomWoodlands" , description = "" },
                     { label = "CaedarvaMire - Survival Guide", command = "/uw sg CaedarvaMire" , description = "" },
                     { label = "AydeewaSubterrane - Survival Guide", command = "/uw sg AydeewaSubterrane" , description = "" },
-                    { label = "MountZhayolm", command = "/uw hp MountZhayolm" , description = "" },
+                    
                 }
             },
             {
@@ -290,6 +325,7 @@ local uber_warp = {
             { label = "ToraimaraiCanal", command = "/uw hp ToraimaraiCanal" , description = "" },
             { label = "UpperDelkfuttsTower", command = "/uw hp UpperDelkfuttsTower" , description = "" },
             { label = "YughottGrotto", command = "/uw hp YughottGrotto" , description = "" },
+            {text = [[ --- Survival Guide --- ]]},
             { label = "CrawlersNest - Survival Guide", command = "/uw sg CrawlersNest" , description = "" },
             { label = "GarlaigeCitadel - Survival Guide", command = "/uw sg GarlaigeCitadel" , description = "" },
             { label = "GusgenMines - Survival Guide", command = "/uw sg GusgenMines" , description = "" },
@@ -318,6 +354,7 @@ local uber_warp = {
             { label = "TavnazianSafehold - Misareaux exit", command = "/uw hp TavnazianSafehold" , description = "" },
             { label = "TavnazianSafehold 2", command = "/uw hp TavnazianSafehold 2" , description = "" },
             { label = "TavnazianSafehold 3", command = "/uw hp TavnazianSafehold 3" , description = "" },
+            {text = [[ --- Survival Guide --- ]]},
             { label = "LufaiseMeadows - Survival Guide", command = "/uw sg LufaiseMeadows" , description = "" },
             { label = "MisareauxCoast - Survival Guide", command = "/uw sg MisareauxCoast" , description = "" },
             { label = "PhomiunaAqueducts - Survival Guide", command = "/uw sg PhomiunaAqueducts" , description = "" },
@@ -333,6 +370,7 @@ local uber_warp = {
             { label = "SouthernSandOriaS", command = "/uw hp SouthernSandOriaS" , description = "" },
             { label = "WindurstWatersS", command = "/uw hp WindurstWatersS" , description = "" },
             { label = "XarcabardS", command = "/uw hp XarcabardS" , description = "" },
+            {text = [[ --- Survival Guide --- ]]},
             { label = "BastokMarketsS - Survival Guide", command = "/uw sg BastokMarketsS" , description = "" },
             { label = "SouthernSandOriaS - Survival Guide", command = "/uw sg SouthernSandOriaS" , description = "" },
             { label = "WindurstWatersS - Survival Guide", command = "/uw sg WindurstWatersS" , description = "" },

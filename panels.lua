@@ -1,21 +1,23 @@
 addon.name    = 'panels';
 addon.author  = 'Maestrel';
-addon.version = '1.2';
+addon.version = '1.0';
 addon.desc    = 'Custom menu for quick commands';
 
 require('common');
 local imgui = require('imgui');
+local chat = require('chat');
 
 -- Load external configuration files
-local warp_zones_path = string.format('%swarp_zones.lua', addon.path);
-local catseyes_path = string.format('%scatseyescom.lua', addon.path);
-local info_path = string.format('%sinfo.lua', addon.path);
-local template_path = string.format('%stemplate.lua', addon.path);
+local settings = require('settings');
+local warp_zones = require('warp_zones');
+local catseyes = require('catseyescom');
+local info_tab = require('info');
+local template_tab = require('template');
 
-local warp_zones = dofile(warp_zones_path);
-local catseyes = dofile(catseyes_path);
-local info_tab = dofile(info_path);
-local template_tab = dofile(template_path);
+-- Custom print functions for categorized output.
+local function printf(fmt, ...)  print(chat.header(addon.name) .. chat.message(fmt:format(...))); end
+local function warnf(fmt, ...)   print(chat.header(addon.name) .. chat.warning(fmt:format(...))); end
+local function errorf(fmt, ...)  print(chat.header(addon.name) .. chat.error  (fmt:format(...))); end
 
 -- Reconstruct the zones table with the new tab order
 local zones = {
@@ -29,6 +31,80 @@ local zones = {
 local show_main_menu = { false };
 local show_icon_window = { true };
 local search_query = { '' };
+
+local function queue_command(cmd)
+    AshitaCore:GetChatManager():QueueCommand(-1, cmd);
+end
+
+local function render_button(btn)
+    if (btn.text) then
+        imgui.Text(tostring(btn.text));
+        return;
+    end
+
+    if (imgui.Button(tostring(btn.label))) then
+        if (btn.command) then
+            printf('executing: ' .. tostring(btn.command));
+            queue_command(btn.command);
+        else
+            errorf('command is nil');
+        end
+    end
+
+    if (btn.description) then
+        imgui.SameLine();
+        local col_text_disabled = ImGuiCol_TextDisabled or 1;
+        imgui.PushStyleColor(col_text_disabled, settings.text_description_color);
+        imgui.TextDisabled(tostring(btn.description));
+        imgui.PopStyleColor(1);
+    end
+end
+
+local function render_buttons(buttons)
+    for _, btn in ipairs(buttons) do
+        render_button(btn);
+    end
+end
+
+local function render_zone_node(node, id_prefix)
+    if (node.sub_zones) then
+        local tabbar_id = id_prefix .. '_TabBar';
+        if (imgui.BeginTabBar(tabbar_id, 0)) then
+            for i, child in ipairs(node.sub_zones) do
+                local child_name = tostring(child.name);
+                if (imgui.BeginTabItem(child_name)) then
+                    render_zone_node(child, tabbar_id .. '_' .. i);
+                    imgui.EndTabItem();
+                end
+            end
+            imgui.EndTabBar();
+        end
+    elseif (node.buttons) then
+        render_buttons(node.buttons);
+    elseif (node.text) then
+        imgui.Text(node.text);
+    end
+end
+
+local function is_uberwarp_loaded()
+    local pm = AshitaCore:GetPluginManager();
+    return pm ~= nil and (
+        pm:IsLoaded('uberwarp') or
+        pm:IsLoaded('UberWarp') or
+        pm:Get('uberwarp') ~= nil or
+        pm:Get('UberWarp') ~= nil
+    );
+end
+
+ashita.events.register('load','panels_load',function()
+    if (not is_uberwarp_loaded()) then
+        warnf('uberwarp is not loaded. Loading now...');
+        queue_command('/load uberwarp');
+        return;
+    end
+
+end);
+
 
 local function get_matching_buttons(zones_table, query)
     local results = {}
@@ -72,6 +148,19 @@ end);
 -- Rendering function
 ashita.events.register('d3d_present', 'uberpanel_render', function()
     
+    -- Apply custom styles from settings
+    local col_text = ImGuiCol_Text or 0;
+    local col_window_bg = ImGuiCol_WindowBg or 2;
+    local col_button = ImGuiCol_Button or 21;
+    local col_button_hovered = ImGuiCol_ButtonHovered or 22;
+    local col_button_active = ImGuiCol_ButtonActive or 23;
+
+    imgui.PushStyleColor(col_text, settings.text_color);
+    imgui.PushStyleColor(col_window_bg, settings.window_bg_color);
+    imgui.PushStyleColor(col_button, settings.button_color);
+    imgui.PushStyleColor(col_button_hovered, settings.button_hovered_color);
+    imgui.PushStyleColor(col_button_active, settings.button_active_color);
+
     -- Use appropriate flags for the icon window
     -- We want it to be draggable, so we DO NOT include ImGuiWindowFlags_NoMove
     local icon_flags = bit.bor(
@@ -94,6 +183,7 @@ ashita.events.register('d3d_present', 'uberpanel_render', function()
 
     -- Check if menu should be shown
     if (not show_main_menu[1]) then
+        imgui.PopStyleColor(5);
         return;
     end
 
@@ -105,140 +195,31 @@ ashita.events.register('d3d_present', 'uberpanel_render', function()
         flags = imgui.ImGuiWindowFlags_AlwaysAutoResize;
     end
     if (imgui.Begin('Quick Commands', show_main_menu, flags)) then
-        
+        -- Search bar
         imgui.InputText('Search', search_query, 256);
-        imgui.SameLine();
-        if imgui.Button('X') then
-            search_query[1] = '';
-        end
+        imgui.Separator();
+
         local query = string.lower(search_query[1]);
-        
-        if (zones == nil) then
-            imgui.Text('Error: zones.lua not loaded.');
-        elseif (query ~= '') then
-            local results = get_matching_buttons(zones, query)
-            if #results == 0 then
-                imgui.Text('No matching buttons found.');
+        if query ~= '' then
+            local matches = get_matching_buttons(zones, query);
+            if #matches > 0 then
+                render_buttons(matches);
             else
-                for _, btn in ipairs(results) do
-                    if (imgui.Button(tostring(btn.label))) then
-                        if (btn.command) then
-                            print('Uberpanel executing: ' .. tostring(btn.command));
-                            AshitaCore:GetChatManager():QueueCommand(-1, btn.command);
-                        else
-                            print('Uberpanel error: command is nil');
-                        end
-                    end
-                    if (btn.description) then
-                        imgui.SameLine();
-                        imgui.TextDisabled(tostring(btn.description));
+                imgui.Text('No matches found.');
+            end
+        else
+            if (imgui.BeginTabBar('ZonesTabBar', 0)) then
+                for _, zone in ipairs(zones) do
+                    if (imgui.BeginTabItem(tostring(zone.name))) then
+                        render_zone_node(zone, tostring(zone.name));
+                        imgui.EndTabItem();
                     end
                 end
+                imgui.EndTabBar();
             end
-        elseif (imgui.BeginTabBar('ZonesTabBar', 0)) then
-            for _, zone in ipairs(zones) do
-                if (imgui.BeginTabItem(zone.name)) then
-                    
-                    -- Sub-zones case (nested tabs)
-                    if (zone.sub_zones) then
-                        if (imgui.BeginTabBar(zone.name .. '_TabBar', 0)) then
-                            for _, subzone in ipairs(zone.sub_zones) do
-                                if (imgui.BeginTabItem(subzone.name)) then
-                                    
-                                    -- Deep nested sub-zones (e.g. Fields & Regions)
-                                    if (subzone.sub_zones) then
-                                        if (imgui.BeginTabBar(subzone.name .. '_TabBar', 0)) then
-                                            for _, subsubzone in ipairs(subzone.sub_zones) do
-                                                if (imgui.BeginTabItem(subsubzone.name)) then
-                                                    if (subsubzone.buttons) then
-                                                        for _, btn in ipairs(subsubzone.buttons) do
-                                                            if (btn.text) then
-                                                                imgui.Text(tostring(btn.text));
-                                                            else
-                                                                if (imgui.Button(tostring(btn.label))) then
-                                                                    if (btn.command) then
-                                                                        print('Uberpanel executing: ' .. tostring(btn.command));
-                                                                        AshitaCore:GetChatManager():QueueCommand(-1, btn.command);
-                                                                    else
-                                                                        print('Uberpanel error: command is nil');
-                                                                    end
-                                                                end
-                                                                if (btn.description) then
-                                                                    imgui.SameLine();
-                                                                    imgui.TextDisabled(tostring(btn.description));
-                                                                end
-                                                            end
-                                                        end
-                                                    end
-                                                    imgui.EndTabItem();
-                                                end
-                                            end
-                                            imgui.EndTabBar();
-                                        end
-
-                                    -- Standard buttons in sub-zone
-                                    elseif (subzone.buttons) then
-                                        for _, btn in ipairs(subzone.buttons) do
-                                            if (btn.text) then
-                                                imgui.Text(tostring(btn.text));
-                                            else
-                                                -- Force label to string to avoid crash
-                                                if (imgui.Button(tostring(btn.label))) then
-                                                    -- Debug: print command to console
-                                                    if (btn.command) then
-                                                        print('Uberpanel executing: ' .. tostring(btn.command));
-                                                        -- Use -1 for addon commands
-                                                        AshitaCore:GetChatManager():QueueCommand(-1, btn.command);
-                                                    else
-                                                        print('Uberpanel error: command is nil');
-                                                    end
-                                                end
-                                                if (btn.description) then
-                                                    imgui.SameLine();
-                                                    imgui.TextDisabled(tostring(btn.description));
-                                                end
-                                            end
-                                        end
-                                    end
-                                    imgui.EndTabItem();
-                                end
-                            end
-                            imgui.EndTabBar();
-                        end
-
-                    -- Standard case (direct buttons)
-                    elseif (zone.buttons) then
-                        for _, btn in ipairs(zone.buttons) do
-                            if (btn.text) then
-                                imgui.Text(tostring(btn.text));
-                            else
-                                -- Force label to string to avoid crash
-                                if (imgui.Button(tostring(btn.label))) then
-                                    -- Debug: print command to console
-                                    if (btn.command) then
-                                        print('Uberpanel executing: ' .. tostring(btn.command));
-                                        -- Use -1 for addon commands
-                                        AshitaCore:GetChatManager():QueueCommand(-1, btn.command);
-                                    else
-                                        print('Uberpanel error: command is nil');
-                                    end
-                                end
-                                if (btn.description) then
-                                    imgui.SameLine();
-                                    imgui.TextDisabled(tostring(btn.description));
-                                end
-                            end
-                        end
-                    -- Simple text content
-                    elseif (zone.text) then
-                        imgui.Text(zone.text);
-                    end
-                    
-                    imgui.EndTabItem();
-                end
-            end
-            imgui.EndTabBar();
         end
     end
     imgui.End();
+
+    imgui.PopStyleColor(5);
 end);
