@@ -100,6 +100,27 @@ local complex_tab = {
 return complex_tab;
 ```
 
+#### Adding a New Main Tab
+
+To create an entirely new tab (like the `template.lua` example):
+
+1. **Create a new `.lua` file** in the `addons/panels/` directory (e.g., `my_new_tab.lua`).
+2. **Define your tab** inside this file using the structure shown above, and `return` the table at the end of the file.
+3. **Register the file** in `panels.lua`. Open `panels.lua` and add a `require` for your file near the top:
+   ```lua
+   local my_new_tab = require('my_new_tab');
+   ```
+4. **Add the tab to the `zones` table** in `panels.lua`. Look for the `local zones = { ... }` block and add your new variable to the list:
+   ```lua
+   local zones = {
+       info_tab,
+       warp_zones,  -- Uber Warp (from warp_zones.lua)
+       catseyes,    -- Catseye's Commands (from catseyescom.lua)
+       template_tab,
+       my_new_tab   -- Your new tab is now added!
+   };
+   ```
+
 ## Requirements
 
 - Ashita v4
