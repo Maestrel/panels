@@ -10,6 +10,7 @@ local chat = require('chat');
 -- Load external configuration files
 local settings = require('settings');
 local warp_zones = require('warp_zones');
+local warp_zones_ms = require('warp_zone_ms');
 local catseyes = require('catseyescom');
 local info_tab = require('info');
 local template_tab = require('template');
@@ -22,7 +23,8 @@ local function errorf(fmt, ...)  print(chat.header(addon.name) .. chat.error  (f
 -- Reconstruct the zones table with the new tab order
 local zones = {
     info_tab,
-    warp_zones,  -- Uber Warp (from warp_zones.lua)
+    warp_zones,  -- Uber Warp (from warp_zone.lua)
+    warp_zones_ms,  -- Uber Warp (from warp_zone_ms.lua)
     catseyes, -- Catseye's Commands (from catseyescom.lua)
     template_tab
 };
@@ -31,9 +33,82 @@ local zones = {
 local show_main_menu = { false };
 local show_icon_window = { true };
 local search_query = { '' };
+local name_input = { tostring(settings.character_name or '') };
 
 local function queue_command(cmd)
-    AshitaCore:GetChatManager():QueueCommand(-1, cmd);
+    for c in string.gmatch(cmd, "[^;]+") do
+        local trimmed = c:gsub("^%s+", ""):gsub("%s+$", "")
+        if trimmed ~= "" then
+            AshitaCore:GetChatManager():QueueCommand(-1, trimmed);
+        end
+    end
+end
+
+local function get_settings_path()
+    local addon_path = tostring(addon.path or '');
+    if (addon_path ~= '') then
+        local last_char = string.sub(addon_path, -1);
+        if (last_char ~= '/' and last_char ~= '\\') then
+            addon_path = addon_path .. '/';
+        end
+    end
+    return addon_path .. 'settings.lua';
+end
+
+local function persist_character_name(name)
+    local settings_path = get_settings_path();
+    local reader = io.open(settings_path, 'r');
+    if (reader == nil) then
+        errorf('failed to open settings file: %s', settings_path);
+        return false;
+    end
+
+    local content = reader:read('*a');
+    reader:close();
+
+    local escaped_name = tostring(name)
+        :gsub('\\', '\\\\')
+        :gsub("'", "\\'");
+
+    local replacement = string.format("character_name = '%s',", escaped_name);
+    local updated, count = content:gsub("character_name%s*=%s*'.-'%s*,", replacement, 1);
+
+    if (count == 0) then
+        updated, count = content:gsub('character_name%s*=%s*".-"%s*,', replacement, 1);
+    end
+
+    if (count == 0) then
+        errorf('could not find character_name entry in settings.lua');
+        return false;
+    end
+
+    local writer = io.open(settings_path, 'w');
+    if (writer == nil) then
+        errorf('failed to write settings file: %s', settings_path);
+        return false;
+    end
+
+    writer:write(updated);
+    writer:close();
+
+    settings.character_name = tostring(name);
+    return true;
+end
+
+local function resolve_command_placeholders(cmd)
+    local resolved = tostring(cmd);
+
+    if (resolved:find('$name', 1, true) ~= nil) then
+        local character_name = tostring(settings.character_name or '');
+        if (character_name == '') then
+            warnf('character name is not set. Use /panels name <character>.');
+            return nil;
+        end
+
+        resolved = resolved:gsub('%$name', character_name);
+    end
+
+    return resolved;
 end
 
 local function render_button(btn)
@@ -44,8 +119,11 @@ local function render_button(btn)
 
     if (imgui.Button(tostring(btn.label))) then
         if (btn.command) then
-            printf('executing: ' .. tostring(btn.command));
-            queue_command(btn.command);
+            local resolved_command = resolve_command_placeholders(btn.command);
+            if (resolved_command ~= nil) then
+                printf('executing: ' .. tostring(resolved_command));
+                queue_command(resolved_command);
+            end
         else
             errorf('command is nil');
         end
@@ -139,9 +217,43 @@ ashita.events.register('command', 'panels_command', function (e)
     if (#args == 0 or args[1] ~= '/panels') then
         return false;
     end
-    
+
     e.blocked = true;
-    show_main_menu[1] = not show_main_menu[1];
+
+    if (#args == 1) then
+        show_main_menu[1] = not show_main_menu[1];
+        return true;
+    end
+
+    local subcommand = string.lower(tostring(args[2] or ''));
+
+    if (subcommand == 'search') then
+        if (#args < 3) then
+            warnf('usage: /panels search <text>');
+            return true;
+        end
+
+        search_query[1] = table.concat(args, ' ', 3);
+        show_main_menu[1] = true;
+        return true;
+    end
+
+    if (subcommand == 'name') then
+        if (#args < 3) then
+            warnf('usage: /panels name <character>');
+            return true;
+        end
+
+        local character_name = table.concat(args, ' ', 3);
+        if (persist_character_name(character_name)) then
+            name_input[1] = character_name;
+            printf('saved character name: %s', character_name);
+        end
+        return true;
+    end
+
+    warnf('unknown subcommand: %s', subcommand);
+    warnf('available: /panels, /panels search <text>, /panels name <character>');
     return true;
 end);
 
@@ -195,6 +307,18 @@ ashita.events.register('d3d_present', 'uberpanel_render', function()
         flags = imgui.ImGuiWindowFlags_AlwaysAutoResize;
     end
     if (imgui.Begin('Quick Commands', show_main_menu, flags)) then
+        -- Character name input for $name commands in warp_zone_ms.lua
+        imgui.InputText('Alt Name', name_input, 64);
+        imgui.SameLine();
+        if (imgui.Button('Save Name')) then
+            local character_name = tostring(name_input[1] or '');
+            if (character_name == '') then
+                warnf('character name cannot be empty');
+            elseif (persist_character_name(character_name)) then
+                printf('saved character name: %s', character_name);
+            end
+        end
+
         -- Search bar
         imgui.InputText('Search', search_query, 256);
         imgui.Separator();

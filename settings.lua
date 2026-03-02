@@ -49,6 +49,9 @@ local settings = {
     button_color         = colors.Sienna,
     button_hovered_color = colors.Red,
     button_active_color  = colors.Rust,
+
+    -- Character name for warp commands
+    character_name = 'yokotte',
 }
 
 return settings;

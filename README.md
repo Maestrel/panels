@@ -16,7 +16,7 @@ The addon is structured into several configuration files:
 
 - `panels.lua`: The main script of the addon.
 - `settings.lua`: Configuration file for adjusting window transparency and button colors.
-- `warp_zones.lua`: Contains configurations for "Uber Warp" teleportations.
+- `warp_zone_ms.lua`: Contains configurations for "Uber Warp" teleportations using `/ms sendto $name` commands.
 - `catseyescom.lua`: Contains specific "Catseye's Commands".
 - `info.lua`: Contains the information tab.
 - `template.lua`: A template for creating new tabs.
@@ -34,6 +34,16 @@ The addon is structured into several configuration files:
 To show or hide the main menu, use the command:
 ```
 /panels
+```
+
+To set the character name used by `$name` in `warp_zone_ms.lua` and save it to `settings.lua`:
+```
+/panels name <character>
+```
+
+To search directly from command line:
+```
+/panels search <text>
 ```
 
 - The panel is displayed by default when the addon is loaded.
@@ -67,7 +77,7 @@ local settings = {
 
 ### Adding Buttons and Zones
 
-The list of buttons is stored in the various `.lua` files (like `warp_zones.lua` or `catseyescom.lua`). You can edit these files to add, remove, or reorganize buttons.
+The list of buttons is stored in the various `.lua` files (like `warp_zone_ms.lua` or `catseyescom.lua`). You can edit these files to add, remove, or reorganize buttons.
 
 #### Structure of a zone file (e.g., `template.lua`)
 
@@ -114,7 +124,7 @@ To create an entirely new tab (like the `template.lua` example):
    ```lua
    local zones = {
        info_tab,
-       warp_zones,  -- Uber Warp (from warp_zones.lua)
+       warp_zones,  -- Uber Warp (from warp_zone_ms.lua)
        catseyes,    -- Catseye's Commands (from catseyescom.lua)
        template_tab,
        my_new_tab   -- Your new tab is now added!
@@ -126,6 +136,7 @@ To create an entirely new tab (like the `template.lua` example):
 - Ashita v4
 - ImGui (included with Ashita)
 - Uberwarp addon (for `/uw` commands)
+- Multisend addon (for `/ms` commands)
 
 ## Author
 

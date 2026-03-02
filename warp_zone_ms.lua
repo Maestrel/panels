@@ -1,5 +1,5 @@
 local uber_warp = {
-    name = "Uber Warp",
+    name = "warp zone ms",
     sub_zones = {
     {
         name = "San d'Oria",
@@ -79,7 +79,7 @@ local uber_warp = {
             { label = "PortJeuno (M)", command = "/ms sendto $name /uw hp PortJeuno 2; /uw hp PortJeuno 2" , description = "Mog House" },
             {text = [[ --- Lower Jeuno --- ]]},
             { label = "LowerJeuno (E)", command = "/ms sendto $name /uw hp LowerJeuno; /uw hp LowerJeuno" , description = "Rolanberry Fields Entrance" },
-            { label = "LowerJeuno (M)", command = "/ms sendto $name /uw hp LowerJeuno 2; /uw hp LowerJeuno 2" , description = "Lower Jeuno Mog House" },
+            { label = "LowerJeuno (M)", command = "/ms sendto $name /uw hp LowerJeuno 2 /uw hp LowerJeuno 2" , description = "Lower Jeuno Mog House" },
             {text = [[ --- Upper Jeuno --- ]]},
             { label = "UpperJeuno (E)", command = "/ms sendto $name /uw hp UpperJeuno; /uw hp UpperJeuno" , description = "Batallia Downs Entrance" },
             { label = "UpperJeuno (M)", command = "/ms sendto $name /uw hp UpperJeuno 2; /uw hp UpperJeuno 2" , description = "Mog House" },

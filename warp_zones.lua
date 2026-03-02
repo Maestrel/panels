@@ -1,5 +1,5 @@
 local uber_warp = {
-    name = "Uber Warp",
+    name = "warp zone",
     sub_zones = {
     {
         name = "San d'Oria",
