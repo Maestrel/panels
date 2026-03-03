@@ -36,10 +36,14 @@ To show or hide the main menu, use the command:
 /panels
 ```
 
-To set the character name used by `$name` in `warp_zone_ms.lua` and save it to `settings.lua`:
+To set the character name (or "all" for all characters) used by the `/ms` command (`$name` in `warp_zone_ms.lua`) and save it to `settings.lua`:
 ```
 /panels name <character>
 ```
+
+Alternatively, you can set the name directly from the addon's GUI:
+- Open the panel and type the requested name in the **Alt Name** input field.
+- Click the **Save Name** button to save it for future use.
 
 To search directly from command line:
 ```
